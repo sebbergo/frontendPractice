@@ -2,6 +2,7 @@ import facade from "./apiFacade.js";
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Dropdown from "react-bootstrap/Dropdown";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function StarwarsPlanet() {
@@ -22,21 +23,50 @@ function StarwarsPlanet() {
     url: "",
   };
 
+  let userPlanetObj = {
+    userName: "",
+    planetName: "",
+    planetClimate: "",
+    planetTerrain: "",
+    planetPopulation: "",
+  };
+
+  const [userPlanetDTO, setUserPlanetDTO] = useState(userPlanetObj);
   const [planet, setPlanet] = useState(obj);
   const [planetList, setPlanetList] = useState([]);
 
   useEffect(() => {
     facade.fetchStarwarsPlanets().then((data) => setPlanetList(data.results));
-    console.log(planetList);
+    //console.log(planetList);
   }, []);
 
   const handleSelect = (evt) => {
-    console.log(evt);
     planetList.forEach(function (value, index, planetList) {
       if (evt === value.name) {
         setPlanet(value);
+        setUserPlanetDTO({
+          ...userPlanetDTO,
+          ["planetName"]: value.name,
+          ["planetClimate"]: value.climate,
+          ["planetTerrain"]: value.terrain,
+          ["planetPopulation"]: value.population,
+        });
       }
     });
+  };
+
+  const handleChangeName = (evt) => {
+    //console.log(userPlanetDTO);
+    setUserPlanetDTO({
+      ...userPlanetDTO,
+      [evt.target.id]: evt.target.value,
+    });
+  };
+
+  const handleAddPlanet = (evt) => {
+    evt.preventDefault();
+    //console.log(userPlanetDTO);
+    facade.addPlanetToUser(userPlanetDTO);
   };
 
   return (
@@ -62,6 +92,14 @@ function StarwarsPlanet() {
           ))}
         </Dropdown.Menu>
       </Dropdown>
+
+      <form onSubmit={handleAddPlanet}>
+        <label>
+          Name:
+          <input type="text" onChange={handleChangeName} id="userName" />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
 
       <Table table table-striped table-bordered table-condensed>
         <tr>

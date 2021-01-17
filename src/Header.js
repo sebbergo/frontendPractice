@@ -31,6 +31,11 @@ function Header(props) {
           </NavLink>
         </li>
         <li>
+          <NavLink activeClassName="active" to="/planetsArray">
+            Planets Array
+          </NavLink>
+        </li>
+        <li>
           <NavLink activeClassName="active" to="/joke">
             Joke
           </NavLink>
