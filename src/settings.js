@@ -1,3 +1,3 @@
-let URL = "http://localhost:8080/jpareststarter";
+let URL = "https://kodeergodt.dk/ca3_backend";
 
 export { URL };
