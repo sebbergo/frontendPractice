@@ -83,6 +83,27 @@ function apiFacade() {
     return fetch(URL + "/api/info/storeJoke/", options).then(handleHttpErrors);
   };
 
+  const addPlanetToUser = (data) => {
+    console.log(data);
+
+    const options = makeOptions("PUT", "false", data);
+
+    /*
+    var options = {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+    };
+    */
+
+    return fetch(URL + "/api/info/addPlanetToUser", options).then(
+      handleHttpErrors
+    );
+  };
+
   const makeOptions = (method, addToken, body) => {
     var opts = {
       method: method,
@@ -113,6 +134,7 @@ function apiFacade() {
     fetchJoke,
     storeJoke,
     fetchStarwarsPlanets,
+    addPlanetToUser,
   };
 }
 

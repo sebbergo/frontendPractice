@@ -7,6 +7,7 @@ import StarwarsPlanet from "./StarwarsPlanets.js";
 import Joke from "./Joke";
 import Admin from "./Admin.js";
 import User from "./User.js";
+import PlanetsArray from "./PlanetsArray";
 import { Switch, Route } from "react-router-dom";
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
         </Route>
         <Route path="/starwarsPlanet">
           <StarwarsPlanet />
+        </Route>
+        <Route path="/planetsArray">
+          <PlanetsArray />
         </Route>
         {!loggedIn ? (
           <div>
